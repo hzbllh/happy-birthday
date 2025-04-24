@@ -1,35 +1,308 @@
 <!DOCTYPE html>
-<html>
+<html lang="ms">
 <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="@feelthisray - Script HTML by Feeldream Repl Co">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <title>htmlku.com/pesanuntukmu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sriracha&family=Itim&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
-	<script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script><link rel="stylesheet" href="https://htmlku.com/pesanuntukmu/style.css">
+    <meta charset="UTF-8">
+    <meta name="description" content="Script HTML untuk Ucapan Ulang Tahun">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Selamat Ulang Tahun!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Patrick+Hand&family=Sriracha&family=Itim&family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Handlee', cursive;
+            background: linear-gradient(to bottom, #ffcccb, #87ceeb);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .cover {
+            text-align: center;
+            color: white;
+        }
+
+        .cover p {
+            font-size: 24px;
+            font-family: 'Berkshire Swash', cursive;
+            margin-bottom: 20px;
+        }
+
+        .awalan {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .awalan svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .awalan label {
+            font-size: 16px;
+            font-family: 'Itim', cursive;
+            color: white;
+        }
+
+        #bodyblur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #wallpaper {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(5px);
+        }
+
+        #thisblur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .envlope-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        #envelope {
+            width: 250px;
+            height: 150px;
+            background: #f5f5f5;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s;
+        }
+
+        #envelope.open .flap {
+            transform: rotateX(180deg);
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #f5f5f5;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top;
+            transition: transform 0.5s;
+        }
+
+        .pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #e0e0e0;
+        }
+
+        .letter {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background: white;
+            z-index: 1;
+            transition: transform 0.5s;
+        }
+
+        #envelope.open .letter {
+            transform: translateY(-50px);
+        }
+
+        .message {
+            padding: 10px;
+            font-size: 14px;
+            font-family: 'Patrick Hand', cursive;
+            text-align: center;
+        }
+
+        .hearts .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            clip-path: polygon(50% 0%, 100% 30%, 70% 100%, 50% 70%, 30% 100%, 0% 30%);
+            animation: float 2s infinite;
+        }
+
+        .heart.a1 { left: 20%; animation-delay: 0s; }
+        .heart.a2 { left: 50%; animation-delay: 0.5s; }
+        .heart.a3 { left: 80%; animation-delay: 1s; }
+
+        .sparkles .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            border-radius: 50%;
+            animation: sparkle 1s infinite;
+        }
+
+        .sparkle.s1 { left: 30%; animation-delay: 0s; }
+        .sparkle.s2 { left: 60%; animation-delay: 0.3s; }
+        .sparkle.s3 { left: 90%; animation-delay: 0.6s; }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-50px); opacity: 0; }
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .reset {
+            position: fixed;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .reset button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Itim', cursive;
+        }
+
+        .stiker {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+        }
+
+        .stiker img {
+            width: 60px;
+        }
+
+        #stikerAlt1 {
+            display: none;
+        }
+
+        .container {
+            position: fixed;
+            top: 20%;
+            left: 10%;
+            width: 80%;
+            text-align: center;
+            color: #333;
+            z-index: 10;
+        }
+
+        .titleC {
+            font-size: 24px;
+            font-family: 'Berkshire Swash', cursive;
+            color: #ff4500;
+        }
+
+        .messageC {
+            font-size: 16px;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        #scontainer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .swrapper {
+            position: relative;
+        }
+
+        .box div {
+            width: 20px;
+            height: 20px;
+            background: #ff69b4;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            animation: bounce 2s infinite;
+        }
+
+        .box div:nth-child(1) { left: 0px; animation-delay: 0s; }
+        .box div:nth-child(2) { left: 30px; animation-delay: 0.2s; }
+        .box div:nth-child(3) { left: 60px; animation-delay: 0.4s; }
+        .box div:nth-child(4) { left: 90px; animation-delay: 0.6s; }
+        .box div:nth-child(5) { left: 120px; animation-delay: 0.8s; }
+        .box div:nth-child(6) { left: 150px; animation-delay: 1s; }
+        .box div:nth-child(7) { left: 180px; animation-delay: 1.2s; }
+        .box div:nth-child(8) { left: 210px; animation-delay: 1.4s; }
+        .box div:nth-child(9) { left: 240px; animation-delay: 1.6s; }
+        .box div:nth-child(10) { left: 270px; animation-delay: 1.8s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-50px); }
+        }
+    </style>
 </head>
 <body>
-	<div class="overlay">
-		<div class="cover">
-	    <p>PENCET KAK PENCET</p>
-	   <div class="awalan">
-	     <svg class='line' fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><g transform='translate(2.000000, 2.000000)'><path d='M9.27542857,0.714285714 C14.0030476,0.714285714 17.836381,4.54666667 17.836381,9.2752381 C17.836381,14.0038095 14.0030476,17.8361905 9.27542857,17.8361905 C4.54685714,17.8361905 0.71447619,14.0038095 0.71447619,9.2752381 C0.71447619,4.54666667 4.54685714,0.714285714 9.27542857,0.714285714 Z'></path><path d='M17.8989524,16.487619 C18.678,16.487619 19.3094286,17.12 19.3094286,17.8980952 C19.3094286,18.6780952 18.678,19.3095238 17.8989524,19.3095238 C17.1199048,19.3095238 16.4875238,18.6780952 16.4875238,17.8980952 C16.4875238,17.12 17.1199048,16.487619 17.8989524,16.487619 Z'></path></g></svg>
-	     <label style="font-size:16px">HAPPY BIRTHDAY C H I I !!</label>
-	   </div>
-	</div>
-  </div>
-  
-	<div id="bodyblur">
-	   <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqjeQ7NlN92_dwtxYNCtLFpPe9lMt_zffq06EPVGF53aqoeBoy3wNq4j6BSPtc8f_ciXlX07xs1mSjgaSpXZUwpYXg2JJxl4D1iVjpdspfHiScLSgqfKTJIHtH4OmpG8Gk1Br8sByutqxjx-s1H-gY8LQCLjWPWyqQ6SsJFac-IGfZq05gxRp3CemyatUy/s1200/1000322477.jpg" id="wallpaper"/>
-	   <div id="thisblur"></div>
-	</div>
-	
-	<audio src="https://feeldreams.github.io/audio/thousand.mp3" id="linkmp3"></audio>
-	
+    <div class="overlay" id="overlay">
+        <div class="cover">
+            <p>PENCET KAK PENCET</p>
+            <div class="awalan">
+                <svg class='line' fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                    <g transform='translate(2.000000, 2.000000)'>
+                        <path d='M9.27542857,0.714285714 C14.0030476,0.714285714 17.836381,4.54666667 17.836381,9.2752381 C17.836381,14.0038095 14.0030476,17.8361905 9.27542857,17.8361905 C4.54685714,17.8361905 0.71447619,14.0038095 0.71447619,9.2752381 C0.71447619,4.54666667 4.54685714,0.714285714 9.27542857,0.714285714 Z'></path>
+                        <path d='M17.8989524,16.487619 C18.678,16.487619 19.3094286,17.12 19.3094286,17.8980952 C19.3094286,18.6780952 18.678,19.3095238 17.8989524,19.3095238 C17.1199048,19.3095238 16.4875238,18.6780952 16.4875238,17.8980952 C16.4875238,17.12 17.1199048,16.487619 17.8989524,16.487619 Z'></path>
+                    </g>
+                </svg>
+                <label>HAPPY BIRTHDAY C H I I !!</label>
+            </div>
+        </div>
+    </div>
+
+    <div id="bodyblur">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqjeQ7NlN92_dwtxYNCtLFpPe9lMt_zffq06EPVGF53aqoeBoy3wNq4j6BSPtc8f_ciXlX07xs1mSjgaSpXZUwpYXg2JJxl4D1iVjpdspfHiScLSgqfKTJIHtH4OmpG8Gk1Br8sByutqxjx-s1H-gY8LQCLjWPWyqQ6SsJFac-IGfZq05gxRp3CemyatUy/s1200/1000322477.jpg" id="wallpaper"/>
+        <div id="thisblur"></div>
+    </div>
+
+    <audio src="https://github.com/hzbllh/happy-birthday/raw/main/happy-birthday-254480.mp3" id="linkmp3" loop></audio>
+
     <div id="envwrap" class="envlope-wrapper">
         <div id="envelope" class="close">
             <div class="wax-seal"></div>
@@ -55,28 +328,22 @@
             </div>
         </div>
     </div>
+
     <div class="reset">
         <button id="open">Buka Surat 🩷</button>
+        <button onclick="toggleMusic()">Togol Muzik</button>
     </div>
-    
-  <div class="stiker">
-    <img id="main-stiker" src="https://htmlku.com/0/panda/pusn.gif" />
-    <img id="stikerAlt1" src="https://htmlku.com/0/panda/muah.gif" />
-  </div>
-  
-  <div class="container" id="container">
-    <p class="titleC"><b>Alooo Kamuu! 🫣💗</b></p>
-    <script>teksAnimasi = [
-                    "Tetap semangat yaa! Aku tau kamu kuat, meskipun masalah yang datang ngga selalu ringan. Aku selalu ada di sini buat dengerin kamu, nemenin kamu, meskipun cuma dari jauh. Aku ngerti kalau kadang suasana di rumah bikin kamu capek, tapi jangan nyerah yaa! Aku percaya kamu bisa lewatin semuanya. Aku mungkin belum bisa bantu banyak, tapi aku bakal selalu ada buat kamu, kapan pun kamu butuh 🫶",
-                    "<br><i>Every day, I’m so proud of you</i>. Aku selalu jatuh cinta lagi dan lagi, dan ngobrol sama kamu tuh bikin aku seneng banget. Walaupun ngga tiap hari rasanya bahagia, tapi selama masih ada kamu, semuanya terasa lebih baik. Jadi, kalau ada apa-apa, cerita aja ke aku, jangan dipendem sendiri 🫠",
-				    "<br><b>Terakhir,</b><br>Aku sayaangg banget<br>samaa kamuu! 💐",
-				    "<br><i class='fontAlt'>I lovee yoouu</i> 😍🫢💗",
-				 ];
-	</script>
-    <p class="messageC"></p>
-  </div>
-  
-  <!-- Box elements animation -->
+
+    <div class="stiker">
+        <img id="main-stiker" src="https://htmlku.com/0/panda/pusn.gif"/>
+        <img id="stikerAlt1" src="https://htmlku.com/0/panda/muah.gif"/>
+    </div>
+
+    <div class="container" id="container">
+        <p class="titleC"><b>Alooo Kamuu! 🫣💗</b></p>
+        <p class="messageC"></p>
+    </div>
+
     <div id="scontainer">
         <div class="swrapper">
             <div class="box">
@@ -94,7 +361,45 @@
         </div>
     </div>
 
-    <script src="https://htmlku.com/pesanuntukmu/script.js"></script>
+    <script>
+        const overlay = document.getElementById("overlay");
+        const envelope = document.getElementById("envelope");
+        const openButton = document.getElementById("open");
+        const music = document.getElementById("linkmp3");
+        const mainStiker = document.getElementById("main-stiker");
+        const stikerAlt1 = document.getElementById("stikerAlt1");
 
+        overlay.addEventListener("click", () => {
+            overlay.style.display = "none";
+            music.play().catch(() => console.log("Autoplay dicegah"));
+        });
+
+        openButton.addEventListener("click", () => {
+            envelope.classList.toggle("open");
+            openButton.style.display = "none";
+            new TypeIt(".messageC", {
+                strings: [
+                    "Tetap semangat yaa! Aku tau kamu kuat, meskipun masalah yang datang ngga selalu ringan. Aku selalu ada di sini buat dengerin kamu, nemenin kamu, meskipun cuma dari jauh. Aku ngerti kalau kadang suasana di rumah bikin kamu capek, tapi jangan nyerah yaa! Aku percaya kamu bisa lewatin semuanya. Aku mungkin belum bisa bantu banyak, tapi aku bakal selalu ada buat kamu, kapan pun kamu butuh 🫶",
+                    "<br><i>Every day, I’m so proud of you</i>. Aku selalu jatuh cinta lagi dan lagi, dan ngobrol sama kamu tuh bikin aku seneng banget. Walaupun ngga tiap hari rasanya bahagia, tapi selama masih ada kamu, semuanya terasa lebih baik. Jadi, kalau ada apa-apa, cerita aja ke aku, jangan dipendem sendiri 🫠",
+                    "<br><b>Terakhir,</b><br>Aku sayaangg banget<br>samaa kamuu! 💐",
+                    "<br><i class='fontAlt'>I lovee yoouu</i> 😍🫢💗"
+                ],
+                speed: 50,
+                waitUntilVisible: true,
+                afterComplete: () => {
+                    mainStiker.style.display = "none";
+                    stikerAlt1.style.display = "block";
+                }
+            }).go();
+        });
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+    </script>
 </body>
 </html>
