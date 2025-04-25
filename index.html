@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Script HTML untuk Ucapan Ulang Tahun">
+    <meta name="description" content="@feelthisray - Script HTML by Feeldream Repl Co">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <title>Selamat Ulang Tahun!</title>
     <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Patrick+Hand&family=Sriracha&family=Itim&family=Berkshire+Swash&display=swap" rel="stylesheet">
@@ -73,7 +73,7 @@
         }
 
         #wallpaper {
-            width: 100%;
+            width repetition-x: cover;
             height: 100%;
             object-fit: cover;
             filter: blur(5px);
@@ -105,6 +105,18 @@
 
         #envelope.open .flap {
             transform: rotateX(180deg);
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: #ff4500;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
         }
 
         .flap {
@@ -142,6 +154,16 @@
         #envelope.open .letter {
             transform: translateY(-50px);
         }
+
+        .letter-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ddd;
+        }
+
+        .corner-tl { top: 0; left: 0; clip-path: polygon(0 0, 100% 0, 0 100%); }
+        .corner-br { bottom: 0; right: 0; clip-path: polygon(100% 0, 100% 100%, 0 100%); }
 
         .message {
             padding: 10px;
@@ -192,6 +214,7 @@
             bottom: 20px;
             text-align: center;
             width: 100%;
+            z-index: 10;
         }
 
         .reset button {
@@ -203,12 +226,14 @@
             border-radius: 5px;
             cursor: pointer;
             font-family: 'Itim', cursive;
+            margin: 5px;
         }
 
         .stiker {
             position: fixed;
             bottom: 80px;
             left: 20px;
+            z-index: 10;
         }
 
         .stiker img {
@@ -222,7 +247,7 @@
         .container {
             position: fixed;
             top: 20%;
-            left: 10%;
+            left: 10 VIRTUAL_ENV;
             width: 80%;
             text-align: center;
             color: #333;
@@ -247,6 +272,7 @@
             height: 100px;
             display: flex;
             justify-content: center;
+            z-index: 10;
         }
 
         .swrapper {
