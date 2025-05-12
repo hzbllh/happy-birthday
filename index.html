@@ -1,597 +1,159 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ulang Tahun Spesial Untukmu!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="description" content="Ucapan Hari Jadi yang Ceria">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Selamat Hari Jadi!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        :root {
-            --primary: #ff6b6b;
-            --secondary: #4ecdc4;
-            --accent: #ffbe76;
-        }
-        
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            height: 100vh;
             margin: 0;
+            font-family: 'Itim', cursive;
+            background: url('https://www.transparenttextures.com/patterns/cartoon-background.png'), linear-gradient(to bottom, #ffebcc, #ffcc99);
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
             overflow: hidden;
-            touch-action: manipulation;
         }
-
         .container {
-            perspective: 1000px;
-            z-index: 10;
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-        }
-
-        .card {
-            width: 100%;
-            height: 600px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: all 1s ease;
-            cursor: pointer;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .card.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            box-sizing: border-box;
             text-align: center;
-        }
-
-        .front {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            color: white;
-        }
-
-        .back {
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-            transform: rotateY(180deg);
-        }
-
-        .gift {
-            width: 180px;
-            margin: 30px 0;
-            animation: bounce 2s infinite, rotate 5s infinite linear;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
-        }
-
-        h1 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            font-family: 'Dancing Script', cursive;
             color: #333;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
         }
-
-        .front h1 {
-            color: white;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        .title {
+            font-family: 'Comic Neue', cursive;
+            font-size: 40px;
+            color: #ff3366;
+            text-shadow: 2px 2px #fff;
+            margin-bottom: 10px;
         }
-
         .message {
-            font-size: 16px;
-            margin-bottom: 25px;
-            line-height: 1.6;
+            font-size: 20px;
+            margin: 20px 0;
+            min-height: 120px;
+            color: #444;
         }
-
-        .photo-frame {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 5px solid white;
-            overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            position: relative;
-            background-color: #f8f8f8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #birthday-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        button {
-            background-color: var(--primary);
+        .button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background: #33cc99;
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
+            border-radius: 8px;
             cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
-            font-size: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        .button:hover {
+            transform: scale(1.1);
         }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        #music-btn {
-            background-color: var(--secondary);
-        }
-
-        #wish-btn {
-            background-color: var(--accent);
-        }
-
-        #cake-btn {
-            background-color: #a55eea;
-        }
-
-        .counter {
-            margin-top: 25px;
-            font-size: 15px;
-            background: rgba(255,255,255,0.7);
-            padding: 10px 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        #countdown {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 8px;
-            color: var(--primary);
-        }
-
-        /* Animations */
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-20px) scale(1.05); }
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-            100% { transform: rotate(-5deg); }
-        }
-
-        @keyframes float {
-            to {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes float-heart {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg) scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        /* Interactive elements */
-        .balloon {
+        .balloons {
             position: absolute;
-            bottom: -50px;
-            width: 40px;
-            height: 50px;
-            border-radius: 50%;
-            z-index: 1;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .balloon:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 15px;
-            width: 10px;
-            height: 15px;
-            background-color: inherit;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-
-        .balloon:hover {
-            transform: scale(1.2);
-        }
-
-        .heart {
-            position: absolute;
-            pointer-events: none;
-            animation: float-heart 4s linear forwards;
-            font-size: 24px;
-            color: var(--primary);
-            z-index: 1;
-        }
-
-        .cake {
-            position: fixed;
-            bottom: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            z-index: 20;
-            transition: all 1s ease-out;
-            cursor: pointer;
-        }
-
-        .cake.show {
             bottom: 0;
-        }
-
-        .wish-form {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 100;
-            width: 90%;
-            max-width: 400px;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-
-        .wish-form.show {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-
-        .wish-form h2 {
-            margin-top: 0;
-            color: var(--primary);
-        }
-
-        .wish-form textarea {
-            width: 100%;
-            height: 120px;
-            margin: 15px 0;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            resize: none;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .wish-form button {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 50;
-            opacity: 0;
+            height: 100%;
             pointer-events: none;
-            transition: opacity 0.3s;
         }
-
-        .overlay.show {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .close-btn {
+        .balloon {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #888;
+            width: 40px;
+            height: 50px;
+            border-radius: 50% 50% 40% 40%;
+            opacity: 0;
+            transform: translateY(0);
+            animation: float 5s ease-in-out infinite;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(0,0,0,0.2));
         }
-
-        /* Photo interaction */
-        .photo-frame:hover #birthday-photo {
-            transform: scale(1.05);
+        .balloon.b1 { background-color: #ff4d4d; left: 20%; animation-delay: 0s; }
+        .balloon.b2 { background-color: #4d79ff; left: 50%; animation-delay: 0.5s; }
+        .balloon.b3 { background-color: #ffd700; left: 80%; animation-delay: 1s; }
+        .show-balloons .balloon {
+            opacity: 1;
+            transform: translateY(-100vh);
+            transition: transform 4s ease-out, opacity 1s ease-out;
         }
-
-        /* Responsive */
-        @media (max-width: 500px) {
-            .card {
-                height: 550px;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            .photo-frame {
-                width: 150px;
-                height: 150px;
-            }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        .sticker {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+        .show-sticker {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card" id="card">
-            <div class="front">
-                <h1>Klik Kado Ini!</h1>
-                <svg class="gift" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#ffffff">
-                    <rect x="20" y="30" width="60" height="50" rx="2" ry="2"/>
-                    <rect x="30" y="20" width="40" height="10" rx="2" ry="2"/>
-                    <line x1="50" y1="30" x2="50" y2="80" stroke="#ffffff" stroke-width="2"/>
-                    <line x1="20" y1="55" x2="80" y2="55" stroke="#ffffff" stroke-width="2"/>
-                </svg>
-                <p class="message">Ada kejutan spesial untukmu di dalam!</p>
-            </div>
-            <div class="back">
-                <h1>Selamat Ulang Tahun!</h1>
-                <p class="message">Semoga hari ini penuh dengan kebahagiaan, keceriaan, dan banyak kejutan menyenangkan!</p>
-                
-                <div class="photo-frame">
-                    <div id="birthday-photo">🎂 Foto Kamu Disini 🎉</div>
-                </div>
-                
-                <div class="btn-group">
-                    <button id="confetti-btn">
-                        � Konfeti
-                    </button>
-                    <button id="music-btn">
-                        ♫ Musik
-                    </button>
-                    <button id="wish-btn">
-                        ✉ Ucapan
-                    </button>
-                    <button id="cake-btn">
-                        🎂 Kue
-                    </button>
-                </div>
-                
-                <div class="counter">
-                    <p>Hitungan mundur ulang tahun berikutnya:</p>
-                    <div id="countdown"></div>
-                </div>
-            </div>
+        <p class="title">Selamat Hari Jadi!</p>
+        <p class="message"></p>
+        <button class="button" onclick="startAnimation()">Klik untuk Kejutan Hari Jadi! 🎉</button>
+        <div class="balloons" id="balloons">
+            <div class="balloon b1"></div>
+            <div class="balloon b2"></div>
+            <div class="balloon b3"></div>
         </div>
+        <img class="sticker" id="sticker" src="https://www.transparentpng.com/thumb/cartoon/8sS8oD-cartoon-transparent-background.png" alt="Cartoon Sticker">
     </div>
 
-    <!-- Cake element -->
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48c3R5bGU+LnN0MHtmaWxsOiNGRkM0OEU7fS5zdDF7ZmlsbDojRkY5RTlFO30uc3Qye2ZpbGw6I0ZGRkZGRjt9PC9zdHlsZT48cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTUwIDcwYzAgMzMuMS0yMi40IDYwLTUwIDYwcy01MC0yNi45LTUwLTYwVjQwaDEwMHYzMHoiLz48cGF0aCBjbGFzcz0ic3QxIiBkPSJNMTUwIDQwSDUwdjMwYzAgMzMuMSAyMi40IDYwIDUwIDYwczUwLTI2LjkgNTAtNjBWNDB6Ii8+PHBhdGggY2xhc3M9InN0MCIgZD0iTTE1MCA0MEg1MHYtMjBoMTAwdjIweiIvPjxjaXJjbGUgY2xhc3M9InN0MiIgY3g9IjUwIiBjeT0iMzAiIHI9IjUiLz48Y2lyY2xlIGNsYXNzPSJzdDIiIGN4PSIxMDAiIGN5PSIyMCIgcj0iNSIvPjxjaXJjbGUgY2xhc3M9InN0MiIgY3g9IjE1MCIgY3k9IjMwIiByPSI1Ii8+PC9zdmc+" 
-         class="cake" id="cake" alt="Birthday Cake">
-    
-    <!-- Wish form -->
-    <div class="overlay" id="overlay"></div>
-    <div class="wish-form" id="wish-form">
-        <button class="close-btn" id="close-btn">×</button>
-        <h2>Tulis Ucapan</h2>
-        <textarea id="wish-text" placeholder="Tulis ucapan spesial disini..."></textarea>
-        <button id="submit-wish">Kirim Ucapan 💌</button>
-    </div>
+    <audio src="https://feeldreams.github.io/audio/happybirthday.mp3" id="linkmp3" loop></audio>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elements
-            const card = document.getElementById('card');
-            const confettiBtn = document.getElementById('confetti-btn');
-            const musicBtn = document.getElementById('music-btn');
-            const wishBtn = document.getElementById('wish-btn');
-            const cakeBtn = document.getElementById('cake-btn');
-            const countdownElement = document.getElementById('countdown');
-            const cake = document.getElementById('cake');
-            const wishForm = document.getElementById('wish-form');
-            const overlay = document.getElementById('overlay');
-            const closeBtn = document.getElementById('close-btn');
-            const submitWish = document.getElementById('submit-wish');
-            const wishText = document.getElementById('wish-text');
+        const teksAnimasi = [
+            "Selamat hari jadi yang ke-[umur]! Semoga hari ni penuh dengan tawa dan kebahagiaan! 🎈",
+            "Kau adalah bintang dalam hidup aku, terus bersinar macam kartun kegemaran kita! ✨",
+            "<br><i>Every day with you feels like an adventure</i>. Aku sayang kau selalu! 💖",
+            "<br><b>Akhirnya,</b><br>Semoga impian kau jadi nyata, kawan terbaik aku! 🥳"
+        ];
+
+        function startAnimation() {
+            // Start balloons
+            document.getElementById('balloons').classList.add('show-balloons');
             
-            // State
-            let isPlaying = false;
-            let cakeVisible = false;
-            let balloons = [];
-            let wishes = [];
-            
-            // Create audio element with silent fallback
-            const audio = new Audio();
-            audio.src = 'data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
-            audio.loop = true;
-            
-            // Flip card on click
-            card.addEventListener('click', function() {
-                this.classList.toggle('flipped');
+            // Start confetti
+            confetti({
+                particleCount: 150,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#ff3366', '#33cc99', '#ffd700', '#4d79ff']
             });
             
-            // Photo interaction
-            const photo = document.getElementById('birthday-photo');
-            photo.addEventListener('click', function() {
-                createHearts(10);
-            });
+            // Show sticker
+            document.getElementById('sticker').classList.add('show-sticker');
             
-            // Confetti effect
-            confettiBtn.addEventListener('click', function() {
-                if (typeof confetti === 'function') {
-                    // Bigger confetti effect
-                    confetti({
-                        particleCount: 200,
-                        spread: 90,
-                        origin: { y: 0.6 },
-                        colors: ['#ff6b6b', '#4ecdc4', '#ffbe76', '#a55eea']
-                    });
-                } else {
-                    createHearts(30);
+            // Play audio
+            document.getElementById('linkmp3').play();
+            
+            // Hide button
+            document.querySelector('.button').style.display = 'none';
+            
+            // Start text animation
+            new TypeIt(".message", {
+                strings: teksAnimasi,
+                speed: 50,
+                waitUntilVisible: true,
+                afterComplete: function (instance) {
+                    instance.destroy();
                 }
-                
-                // Add some balloons too
-                for (let i = 0; i < 5; i++) {
-                    createBalloon();
-                }
-            });
-            
-            // Music toggle
-            musicBtn.addEventListener('click', function() {
-                if (isPlaying) {
-                    audio.pause();
-                    musicBtn.innerHTML = '♫ Musik';
-                } else {
-                    audio.play().catch(e => {
-                        musicBtn.innerHTML = '🔇 Klik Lagi';
-                        console.error('Autoplay prevented:', e);
-                    });
-                    musicBtn.innerHTML = '■ Stop';
-                }
-                isPlaying = !isPlaying;
-            });
-            
-            // Cake toggle
-            cakeBtn.addEventListener('click', function() {
-                cakeVisible = !cakeVisible;
-                if (cakeVisible) {
-                    cake.classList.add('show');
-                    cakeBtn.innerHTML = '✖ Tutup Kue';
-                    createHearts(5);
-                } else {
-                    cake.classList.remove('show');
-                    cakeBtn.innerHTML = '🎂 Kue';
-                }
-            });
-            
-            // Cake interaction
-            cake.addEventListener('click', function() {
-                createHearts(15);
-                if (typeof confetti === 'function') {
-                    confetti({
-                        particleCount: 100,
-                        spread: 70,
-                        origin: { x: 0.5, y: 0.9 },
-                        colors: ['#ff6b6b', '#ffbe76', '#ffffff']
-                    });
-                }
-            });
-            
-            // Wish form toggle
-            wishBtn.addEventListener('click', function() {
-                wishForm.classList.add('show');
-                overlay.classList.add('show');
-            });
-            
-            closeBtn.addEventListener('click', closeWishForm);
-            overlay.addEventListener('click', closeWishForm);
-            
-            function closeWishForm() {
-                wishForm.classList.remove('show');
-                overlay.classList.remove('show');
-            }
-            
-            // Submit wish
-            submitWish.addEventListener('click', function() {
-                const text = wishText.value.trim();
-                if (text) {
-                    wishes.push(text);
-                    alert('Ucapanmu telah dikirim! 💖');
-                    wishText.value = '';
-                    closeWishForm();
-                    createHearts(5);
-                } else {
-                    alert('Tulis ucapan dulu ya!');
-                }
-            });
-            
-            // Countdown to next birthday
-            function updateCountdown() {
-                const now = new Date();
-                // Set the next birthday date (change month/day to the actual date)
-                const nextBirthday = new Date(now.getFullYear(), 11, 31); // December 31
-                
-                if (now > nextBirthday) {
-                    nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-                }
-                
-                const diff = nextBirthday - now;
-                
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                countdownElement.innerHTML = 
-                    `${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
-            }
-            
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
-            
-            // Floating balloons effect
-            function createBalloon() {
-                const balloon = document.createElement('div');
-                balloon.className = 'balloon';
-                
-                // Random position and color
-                const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ffbe76', '#a55eea'];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                balloon.style.left = Math.random() * 100 + 'vw';
-                balloon.style.backgroundColor = randomColor;
-                balloon.style.animation = `float ${Math.random() * 5 + 5}s linear forwards`;
-                
-                // Make balloon interactive
-                balloon.addEventListener('click', function() {
-                    this.style.transform = 'scale(1.5)';
-                    setTimeout(() => {
-                        this.remove();
-                        createHearts(3);
-                    }, 300);
-                });
-                
-                document.body.appendChild(balloon);
-                balloons.push(balloon);
-                
-                // Remove balloon after animation
-                setTimeout(() => {
-                    balloon.remove();
-                    balloons = balloons.filter(b => b !== balloon);
-                }, 10000);
-            }
-            
-            // Create h
+            }).go();
+        }
+    </script>
+</body>
+</html>
