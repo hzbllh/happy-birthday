@@ -12,7 +12,7 @@
         body {
             margin: 0;
             font-family: 'Itim', cursive;
-            background: url('https://raw.githubusercontent.com/hzbllh/happy-birthday/main/bg.jpg') no-repeat center center fixed;
+            background: url('https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/fd657b74-d972-413a-8226-05284aff75af_removalai_preview.png') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -66,9 +66,9 @@
         }
         .balloon {
             position: absolute;
-            width: 40px;
-            height: 50px;
-            background: url('https://raw.githubusercontent.com/hzbllh/happy-birthday/main/balloon.png') no-repeat center center;
+            width: 50px;
+            height: 60px;
+            background: url('https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/642b1fea-28ec-494e-96bf-bc52fd376f00_removalai_preview.png') no-repeat center center;
             background-size: contain;
             opacity: 0;
             transform: translateY(0);
@@ -89,11 +89,23 @@
         }
         .sticker {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 100px;
             opacity: 0;
             transition: opacity 1s ease-in;
+        }
+        .sticker1 {
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+        }
+        .sticker2 {
+            top: 20px;
+            left: 20px;
+            width: 80px;
+        }
+        .sticker3 {
+            top: 20px;
+            right: 20px;
+            width: 80px;
         }
         .show-sticker {
             opacity: 1;
@@ -110,7 +122,9 @@
             <div class="balloon b2"></div>
             <div class="balloon b3"></div>
         </div>
-        <img class="sticker" id="sticker" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/main/sticker.png" alt="Cartoon Sticker">
+        <img class="sticker sticker1" id="sticker1" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/pngfind.com-psyduck-png-2756137.png" alt="Psyduck Sticker">
+        <img class="sticker sticker2" id="sticker2" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/a0120de2-210b-44ca-bef7-0625f52cdef9_removalai_preview.png" alt="Sticker 2">
+        <img class="sticker sticker3" id="sticker3" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/5b38fdda-b281-4414-9c56-d9a3567a81f5_removalai_preview.png" alt="Sticker 3">
     </div>
 
     <audio src="https://feeldreams.github.io/audio/happybirthday.mp3" id="linkmp3" loop></audio>
@@ -119,7 +133,7 @@
         const teksAnimasi = [
             "Selamat Hari Jadi Chii,",
             "Semoga berjaya dunia akhirat, Aaminn",
-            "Somga semuanya berjalan lancar,",
+            "Semoga semuanya berjalan lancar,",
             "Semoga naik glory nanti,",
             "<br>Yang Benar,<br>H"
         ];
@@ -136,8 +150,10 @@
                 colors: ['#ff3366', '#33cc99', '#ffd700', '#4d79ff']
             });
             
-            // Show sticker
-            document.getElementById('sticker').classList.add('show-sticker');
+            // Show stickers
+            document.getElementById('sticker1').classList.add('show-sticker');
+            document.getElementById('sticker2').classList.add('show-sticker');
+            document.getElementById('sticker3').classList.add('show-sticker');
             
             // Play audio
             document.getElementById('linkmp3').play();
