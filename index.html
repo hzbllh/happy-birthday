@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="description" content="Ucapan Hari Jadi yang Ceria">
+    <meta name="description" content="Ucapan Hari Jadi untuk Chii">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Happy Birthday Chii !!</title>
     <link href="https://fonts.googleapis.com/css2?family=Itim&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
         body {
             margin: 0;
             font-family: 'Itim', cursive;
-            background: url('https://www.transparenttextures.com/patterns/cartoon-background.png'), linear-gradient(to bottom, #ffebcc, #ffcc99);
+            background: url('https://raw.githubusercontent.com/hzbllh/happy-birthday/main/bg.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -68,15 +68,15 @@
             position: absolute;
             width: 40px;
             height: 50px;
-            border-radius: 50% 50% 40% 40%;
+            background: url('https://raw.githubusercontent.com/hzbllh/happy-birthday/main/balloon.png') no-repeat center center;
+            background-size: contain;
             opacity: 0;
             transform: translateY(0);
             animation: float 5s ease-in-out infinite;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(0,0,0,0.2));
         }
-        .balloon.b1 { background-color: #ff4d4d; left: 20%; animation-delay: 0s; }
-        .balloon.b2 { background-color: #4d79ff; left: 50%; animation-delay: 0.5s; }
-        .balloon.b3 { background-color: #ffd700; left: 80%; animation-delay: 1s; }
+        .balloon.b1 { left: 20%; animation-delay: 0s; }
+        .balloon.b2 { left: 50%; animation-delay: 0.5s; }
+        .balloon.b3 { left: 80%; animation-delay: 1s; }
         .show-balloons .balloon {
             opacity: 1;
             transform: translateY(-100vh);
@@ -110,17 +110,18 @@
             <div class="balloon b2"></div>
             <div class="balloon b3"></div>
         </div>
-        <img class="sticker" id="sticker" src="https://www.transparentpng.com/thumb/cartoon/8sS8oD-cartoon-transparent-background.png" alt="Cartoon Sticker">
+        <img class="sticker" id="sticker" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/main/sticker.png" alt="Cartoon Sticker">
     </div>
 
     <audio src="https://feeldreams.github.io/audio/happybirthday.mp3" id="linkmp3" loop></audio>
 
     <script>
         const teksAnimasi = [
-            "Selamat hari jadi yang ke-[umur]! Semoga hari ni penuh dengan tawa dan kebahagiaan! 🎈",
-            "Kau adalah bintang dalam hidup aku, terus bersinar macam kartun kegemaran kita! ✨",
-            "<br><i>Every day with you feels like an adventure</i>. Aku sayang kau selalu! 💖",
-            "<br><b>Akhirnya,</b><br>Semoga impian kau jadi nyata, kawan terbaik aku! 🥳"
+            "Selamat Hari Jadi Chii,",
+            "Semoga berjaya dunia akhirat, Aaminn",
+            "Somga semuanya berjalan lancar,",
+            "Semoga naik glory nanti,",
+            "<br>Yang Benar,<br>H"
         ];
 
         function startAnimation() {
