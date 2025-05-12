@@ -12,8 +12,7 @@
         body {
             margin: 0;
             font-family: 'Itim', cursive;
-            background: url('https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/fd657b74-d972-413a-8226-05284aff75af_removalai_preview.png') no-repeat center center fixed;
-            background-size: cover;
+            background: linear-gradient(to bottom, #ffebcc, #ffcc99);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,23 +23,50 @@
             text-align: center;
             color: #333;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
+            max-width: 400px;
+            position: relative;
+            z-index: 1;
         }
         .title {
             font-family: 'Comic Neue', cursive;
-            font-size: 40px;
+            font-size: 36px;
             color: #ff3366;
             text-shadow: 2px 2px #fff;
             margin-bottom: 10px;
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         .message {
-            font-size: 20px;
+            font-size: 18px;
             margin: 20px 0;
             min-height: 120px;
             color: #444;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .control-btn {
+            background: #ddd;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .control-btn:hover {
+            background: #ccc;
         }
         .button {
             padding: 12px 24px;
@@ -66,17 +92,17 @@
         }
         .balloon {
             position: absolute;
-            width: 50px;
-            height: 60px;
-            background: url('https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/642b1fea-28ec-494e-96bf-bc52fd376f00_removalai_preview.png') no-repeat center center;
-            background-size: contain;
+            width: 30px;
+            height: 40px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(0,0,0,0.2));
+            border-radius: 50% 50% 40% 40%;
             opacity: 0;
             transform: translateY(0);
             animation: float 5s ease-in-out infinite;
         }
-        .balloon.b1 { left: 20%; animation-delay: 0s; }
-        .balloon.b2 { left: 50%; animation-delay: 0.5s; }
-        .balloon.b3 { left: 80%; animation-delay: 1s; }
+        .balloon.b1 { background-color: #ff4d4d; left: 20%; animation-delay: 0s; }
+        .balloon.b2 { background-color: #4d79ff; left: 50%; animation-delay: 0.5s; }
+        .balloon.b3 { background-color: #ffd700; left: 80%; animation-delay: 1s; }
         .show-balloons .balloon {
             opacity: 1;
             transform: translateY(-100vh);
@@ -87,27 +113,37 @@
             50% { transform: translateY(-20px) rotate(5deg); }
             100% { transform: translateY(0) rotate(0deg); }
         }
-        .sticker {
+        .main-character {
             position: absolute;
+            width: 200px;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .top-stickers, .bottom-stickers {
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             opacity: 0;
             transition: opacity 1s ease-in;
         }
-        .sticker1 {
+        .top-stickers {
+            top: 20px;
+        }
+        .bottom-stickers {
             bottom: 20px;
-            right: 20px;
-            width: 120px;
         }
-        .sticker2 {
-            top: 20px;
-            left: 20px;
-            width: 80px;
+        .top-stickers img, .bottom-stickers img {
+            width: 50px; /* Saiz kecil untuk watak atas */
         }
-        .sticker3 {
-            top: 20px;
-            right: 20px;
-            width: 80px;
+        .bottom-stickers img {
+            width: 40px; /* Saiz lebih kecil untuk watak bawah */
         }
-        .show-sticker {
+        .show-stickers {
             opacity: 1;
         }
     </style>
@@ -115,6 +151,11 @@
 <body>
     <div class="container">
         <p class="title">Happy Birthday Chii !!</p>
+        <div class="controls">
+            <button class="control-btn" onclick="typeItInstance.play()">▶</button>
+            <button class="control-btn" onclick="typeItInstance.pause()">⏸</button>
+            <button class="control-btn" onclick="typeItInstance.reset()">↺</button>
+        </div>
         <p class="message"></p>
         <button class="button" onclick="startAnimation()">PENCET SINI KAK</button>
         <div class="balloons" id="balloons">
@@ -122,14 +163,20 @@
             <div class="balloon b2"></div>
             <div class="balloon b3"></div>
         </div>
-        <img class="sticker sticker1" id="sticker1" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/pngfind.com-psyduck-png-2756137.png" alt="Psyduck Sticker">
-        <img class="sticker sticker2" id="sticker2" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/a0120de2-210b-44ca-bef7-0625f52cdef9_removalai_preview.png" alt="Sticker 2">
-        <img class="sticker sticker3" id="sticker3" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/5b38fdda-b281-4414-9c56-d9a3567a81f5_removalai_preview.png" alt="Sticker 3">
+        <img class="main-character" src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/pngfind.com-psyduck-png-2756137.png" alt="Main Character">
+        <div class="top-stickers" id="top-stickers">
+            <img src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/a0120de2-210b-44ca-bef7-0625f52cdef9_removalai_preview.png" alt="Top Sticker 1">
+            <img src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/5b38fdda-b281-4414-9c56-d9a3567a81f5_removalai_preview.png" alt="Top Sticker 2">
+        </div>
+        <div class="bottom-stickers" id="bottom-stickers">
+            <img src="https://raw.githubusercontent.com/hzbllh/happy-birthday/74f4656d4707164b8da0e3e096bf08d7790e90b0/29eeb3cb-7a82-44c7-99df-d75f32d243ce_removalai_preview.png" alt="Bottom Sticker">
+        </div>
     </div>
 
     <audio src="https://feeldreams.github.io/audio/happybirthday.mp3" id="linkmp3" loop></audio>
 
     <script>
+        let typeItInstance;
         const teksAnimasi = [
             "Selamat Hari Jadi Chii,",
             "Semoga berjaya dunia akhirat, Aaminn",
@@ -151,9 +198,8 @@
             });
             
             // Show stickers
-            document.getElementById('sticker1').classList.add('show-sticker');
-            document.getElementById('sticker2').classList.add('show-sticker');
-            document.getElementById('sticker3').classList.add('show-sticker');
+            document.getElementById('top-stickers').classList.add('show-stickers');
+            document.getElementById('bottom-stickers').classList.add('show-stickers');
             
             // Play audio
             document.getElementById('linkmp3').play();
@@ -162,7 +208,7 @@
             document.querySelector('.button').style.display = 'none';
             
             // Start text animation
-            new TypeIt(".message", {
+            typeItInstance = new TypeIt(".message", {
                 strings: teksAnimasi,
                 speed: 50,
                 waitUntilVisible: true,
