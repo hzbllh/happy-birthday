@@ -1,139 +1,341 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="@feelthisray - Script HTML by Feeldream Repl Co">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    <title>htmlku.com/pesanuntukmu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sriracha&family=Itim&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
-    <link rel="stylesheet" href="https://htmlku.com/pesanuntukmu/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        .balloons {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            pointer-events: none;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
+
+        .container {
+            perspective: 1000px;
+            z-index: 1;
+        }
+
+        .card {
+            width: 300px;
+            height: 450px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 1s ease;
+            cursor: pointer;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            border-radius: 15px;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .front {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+        }
+
+        .back {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            transform: rotateY(180deg);
+        }
+
+        .gift {
+            width: 150px;
+            margin-top: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .photo-frame {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #birthday-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff8e8e;
+            transform: scale(1.05);
+        }
+
+        .counter {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        #countdown {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes float {
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
         .balloon {
             position: absolute;
-            width: 30px;
-            height: 40px;
-            border-radius: 50% 50% 40% 40%;
-            opacity: 0;
-            transform: translateY(0);
-            animation: float 4s ease-in-out infinite;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(0,0,0,0.2));
+            bottom: -50px;
+            width: 40px;
+            height: 50px;
+            border-radius: 50%;
+            z-index: 0;
         }
-        .balloon.b1 { background-color: #ff4d4d; left: 20%; animation-delay: 0s; }
-        .balloon.b2 { background-color: #4d79ff; left: 50%; animation-delay: 0.5s; }
-        .balloon.b3 { background-color: #ffd700; left: 80%; animation-delay: 1s; }
-        #envelope.open .balloon {
-            opacity: 1;
-            transform: translateY(-100vh);
-            transition: transform 4s ease-out, opacity 1s ease-out;
+
+        .balloon:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 15px;
+            width: 10px;
+            height: 15px;
+            background-color: inherit;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         }
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-            100% { transform: translateY(0) rotate(0deg); }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Heart animation */
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float-heart 4s linear forwards;
+            font-size: 20px;
+            color: #ff6b6b;
+        }
+
+        @keyframes float-heart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="overlay">
-        <div class="cover">
-            <p>PENCET KAK PENCET</p>
-            <div class="awalan">
-                <svg class='line' fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
-                    <g transform='translate(2.000000, 2.000000)'>
-                        <path d='M9.27542857,0.714285714 C14.0030476,0.714285714 17.836381,4.54666667 17.836381,9.2752381 C17.836381,14.0038095 14.0030476,17.8361905 9.27542857,17.8361905 C4.54685714,17.8361905 0.71447619,14.0038095 0.71447619,9.2752381 C0.71447619,4.54666667 4.54685714,0.714285714 9.27542857,0.714285714 Z'></path>
-                        <path d='M17.8989524,16.487619 C18.678,16.487619 19.3094286,17.12 19.3094286,17.8980952 C19.3094286,18.6780952 18.678,19.3095238 17.8989524,19.3095238 C17.1199048,19.3095238 16.4875238,18.6780952 16.4875238,17.8980952 C16.4875238,17.12 17.1199048,16.487619 17.8989524,16.487619 Z'></path>
-                    </g>
+    <div class="container">
+        <div class="card" id="card">
+            <div class="front">
+                <h1>Klik untuk Buka!</h1>
+                <svg class="gift" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#ffffff">
+                    <rect x="20" y="30" width="60" height="50" rx="2" ry="2"/>
+                    <rect x="30" y="20" width="40" height="10" rx="2" ry="2"/>
+                    <line x1="50" y1="30" x2="50" y2="80" stroke="#ffffff" stroke-width="2"/>
+                    <line x1="20" y1="55" x2="80" y2="55" stroke="#ffffff" stroke-width="2"/>
                 </svg>
-                <label style="font-size:16px">HAPPY BIRTHDAY CHII</label>
             </div>
-        </div>
-    </div>
-
-    <div id="bodyblur">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqjeQ7NlN92_dwtxYNCtLFpPe9lMt_zffq06EPVGF53aqoeBoy3wNq4j6BSPtc8f_ciXlX07xs1mSjgaSpXZUwpYXg2JJxl4D1iVjpdspfHiScLSgqfKTJIHtH4OmpG8Gk1Br8sByutqxjx-s1H-gY8LQCLjWPWyqQ6SsJFac-IGfZq05gxRp3CemyatUy/s1200/1000322477.jpg" id="wallpaper"/>
-        <div id="thisblur"></div>
-    </div>
-
-    <audio src="https://feeldreams.github.io/audio/thousand.mp3" id="linkmp3"></audio>
-
-    <div id="envwrap" class="envlope-wrapper">
-        <div id="envelope" class="close">
-            <div class="wax-seal"></div>
-            <div class="front flap"></div>
-            <div class="front pocket"></div>
-            <div class="letter">
-                <div class="letter-corner corner-tl"></div>
-                <div class="letter-corner corner-br"></div>
-                <div class="message">
-                    <p>Alooo Kamuu! 🩷</p>
-                    <p>......</p>
+            <div class="back">
+                <h1>Selamat Ulang Tahun!</h1>
+                <p class="message">Semoga panjang umur, sehat selalu, dan bahagia!</p>
+                
+                <div class="photo-frame">
+                    <div id="birthday-photo">Foto Orang</div>
+                </div>
+                
+                <button id="confetti-btn">Klik untuk Rayakan!</button>
+                <button id="music-btn">Putar Musik</button>
+                
+                <div class="counter">
+                    <p>Hitungan mundur ulang tahun berikutnya:</p>
+                    <div id="countdown"></div>
                 </div>
             </div>
-            <div class="balloons">
-                <div class="balloon b1"></div>
-                <div class="balloon b2"></div>
-                <div class="balloon b3"></div>
-            </div>
-            <div class="sparkles">
-                <div class="sparkle s1"></div>
-                <div class="sparkle s2"></div>
-                <div class="sparkle s3"></div>
-            </div>
-        </div>
-    </div>
-    <div class="reset">
-        <button id="open">Buka Surat 🩷</button>
-    </div>
-
-    <div class="stiker">
-        <img id="main-stiker" src="https://htmlku.com/0/panda/pusn.gif" />
-        <img id="stikerAlt1" src="https://htmlku.com/0/panda/muah.gif" />
-    </div>
-
-    <div class="container" id="container">
-        <p class="titleC"><b>Alooo Kamuu! 🫣💗</b></p>
-        <script>
-            teksAnimasi = [
-                "Tetap semangat yaa! Aku tau kamu kuat, meskipun masalah yang datang ngga selalu ringan. Aku selalu ada di sini buat dengerin kamu, nemenin kamu, meskipun cuma dari jauh. Aku ngerti kalau kadang suasana di rumah bikin kamu capek, tapi jangan nyerah yaa! Aku percaya kamu bisa lewatin semuanya. Aku mungkin belum bisa bantu banyak, tapi aku bakal selalu ada buat kamu, kapan pun kamu butuh 🫶",
-                "<br><i>Every day, I’m so proud of you</i>. Aku selalu jatuh cinta lagi dan lagi, dan ngobrol sama kamu tuh bikin aku seneng banget. Walaupun ngga tiap hari rasanya bahagia, tapi selama masih ada kamu, semuanya terasa lebih baik. Jadi, kalau ada apa-apa, cerita aja ke aku, jangan dipendem sendiri 🫠",
-                "<br><b>Terakhir,</b><br>Aku sayaangg banget<br>samaa kamuu! 💐",
-                "<br><i class='fontAlt'>I lovee yoouu</i> 😍🫢💗",
-            ];
-        </script>
-        <p class="messageC"></p>
-    </div>
-
-    <!-- Box elements animation -->
-    <div id="scontainer">
-        <div class="swrapper">
-            <div class="box">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
         </div>
     </div>
 
-    <script src="https://htmlku.com/pesanuntukmu/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const card = document.getElementById('card');
+            const confettiBtn = document.getElementById('confetti-btn');
+            const musicBtn = document.getElementById('music-btn');
+            const countdownElement = document.getElementById('countdown');
+            let isPlaying = false;
+            
+            // Create audio element dynamically
+            const audio = new Audio();
+            audio.src = 'data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+            audio.loop = true;
+            
+            // Flip card on click
+            card.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
+            
+            // Confetti effect
+            confettiBtn.addEventListener('click', function() {
+                // Simple confetti fallback if CDN fails
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                } else {
+                    createHearts();
+                }
+            });
+            
+            // Music toggle
+            musicBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    audio.pause();
+                    musicBtn.textContent = 'Putar Musik';
+                } else {
+                    audio.play().catch(e => {
+                        musicBtn.textContent = 'Musik Error';
+                        console.error('Autoplay prevented:', e);
+                    });
+                    musicBtn.textContent = 'Stop Musik';
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // Countdown to next birthday
+            function updateCountdown() {
+                const now = new Date();
+                // Set the next birthday date (change month/day to the actual date)
+                const nextBirthday = new Date(now.getFullYear(), 11, 31); // December 31
+                
+                if (now > nextBirthday) {
+                    nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+                }
+                
+                const diff = nextBirthday - now;
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                countdownElement.innerHTML = 
+                    `${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
+            }
+            
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+            
+            // Floating balloons effect
+            function createBalloon() {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                
+                // Random position and color
+                const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ffbe76'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                balloon.style.left = Math.random() * 100 + 'vw';
+                balloon.style.backgroundColor = randomColor;
+                balloon.style.animation = `float ${Math.random() * 5 + 5}s linear forwards`;
+                
+                document.body.appendChild(balloon);
+                
+                // Remove balloon after animation
+                setTimeout(() => {
+                    balloon.remove();
+                }, 10000);
+            }
+            
+            // Create hearts (fallback confetti)
+            function createHearts() {
+                for (let i = 0; i < 30; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.bottom = '-20px';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }
+            }
+            
+            // Create balloons periodically
+            setInterval(createBalloon, 800);
+            
+            // Load confetti library dynamically
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
+            document.head.appendChild(script);
+        });
+    </script>
 </body>
-</html>
+    </html>
